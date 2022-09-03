@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/main/MenuBase.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/main/LevelSelect.gd" type="Script" id=3]
+
+[node name="LevelSelect" instance=ExtResource( 2 )]
+rect_pivot_offset = Vector2( -1889.02, -105.453 )
+script = ExtResource( 3 )
+levels = [ "res://src/levels/Level1.tscn" ]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
+anchor_left = 0.1
+anchor_top = 0.05
+anchor_right = 0.9
+anchor_bottom = 0.95
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 50
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer" index="0"]
+margin_right = 1024.0
+margin_bottom = 44.0
+size_flags_horizontal = 5
+text = "Select Level"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelGrid" type="GridContainer" parent="VBoxContainer" index="1"]
+margin_top = 94.0
+margin_right = 1024.0
+margin_bottom = 554.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 20
+custom_constants/hseparation = 20
+columns = 3
+
+[node name="BackButton" type="Button" parent="VBoxContainer" index="2"]
+margin_left = 474.0
+margin_top = 604.0
+margin_right = 550.0
+margin_bottom = 648.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_BackButton_pressed"]

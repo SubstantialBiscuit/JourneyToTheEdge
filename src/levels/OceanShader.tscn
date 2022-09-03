@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/levels/OceanShader.gd" type="Script" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D gradient;
+uniform vec2 scroll_speed;
+uniform vec4 edge_colour : hint_color;
+uniform vec2 texture_size;
+uniform float edge_radius;
+uniform float edge_power = 0.5;
+
+const vec2 centre = vec2(0.5, 0.5);
+
+varying vec2 vert;
+
+void vertex(){
+    vert = VERTEX;
+}
+
+void fragment() {
+	// Animate the water
+	vec2 new_uv = UV;
+	new_uv.x += cos(TIME) * scroll_speed.x;
+	new_uv.y += cos(TIME) * scroll_speed.y;
+	// Colour the noise map
+	vec4 weight = texture(TEXTURE, new_uv);
+	COLOR = texture(gradient, vec2(weight.r, weight.r)).rgba;
+
+	// Calculate the UV across the whole rectangle in range 0 - 1
+	vec2 full_uv = vert / texture_size;
+	// Highlight the circle edge of the map
+	float edge_dist = abs(distance(full_uv, centre) - edge_radius);
+	COLOR = mix(edge_colour, COLOR, clamp(pow(edge_dist, edge_power), 0.0, 1.0));
+}
+"
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.510417, 1 )
+colors = PoolColorArray( 0, 0, 0.752941, 1, 0.180392, 0.490196, 0.901961, 1, 0.486275, 0.870588, 1, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 1 )
+shader_param/scroll_speed = Vector2( -0.005, 0.005 )
+shader_param/edge_colour = Color( 0.0901961, 1, 0, 1 )
+shader_param/texture_size = Vector2( 1280, 1280 )
+shader_param/edge_radius = 0.4
+shader_param/edge_power = 0.2
+shader_param/gradient = SubResource( 3 )
+
+[sub_resource type="OpenSimplexNoise" id=5]
+octaves = 8
+period = 100.0
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=6]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource( 5 )
+
+[node name="OceanShader" type="TextureRect"]
+pause_mode = 2
+material = SubResource( 4 )
+margin_right = 1280.0
+margin_bottom = 1280.0
+texture = SubResource( 6 )
+expand = true
+stretch_mode = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+edge_radius = 0.4

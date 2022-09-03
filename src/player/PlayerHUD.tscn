@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/player/art/ship.png" type="Texture" id=1]
+[ext_resource path="res://src/player/art/rum_bottle.png" type="Texture" id=2]
+[ext_resource path="res://src/player/PlayerHUD.gd" type="Script" id=3]
+[ext_resource path="res://src/main/ui_theme.tres" type="Theme" id=4]
+[ext_resource path="res://src/main/art/border_bar-upper.png" type="Texture" id=5]
+[ext_resource path="res://src/main/art/border_bar-middle.png" type="Texture" id=6]
+[ext_resource path="res://src/main/art/border_bar-lower.png" type="Texture" id=7]
+
+[node name="PlayerHUD" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.01
+anchor_top = 0.01
+anchor_right = 0.3
+anchor_bottom = 0.05
+theme = ExtResource( 4 )
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBox" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 371.0
+margin_bottom = 16.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthIcon" type="TextureRect" parent="VBoxContainer/HealthBox"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="HealthBar" type="TextureProgress" parent="VBoxContainer/HealthBox"]
+margin_left = 20.0
+margin_right = 371.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 64, 16 )
+size_flags_horizontal = 3
+texture_under = ExtResource( 7 )
+texture_over = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+
+[node name="MoraleBox" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 26.0
+margin_right = 371.0
+margin_bottom = 42.0
+
+[node name="MoraleIcon" type="TextureRect" parent="VBoxContainer/MoraleBox"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="MoraleBar" type="TextureProgress" parent="VBoxContainer/MoraleBox"]
+margin_left = 20.0
+margin_right = 371.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 64, 16 )
+size_flags_horizontal = 3
+texture_under = ExtResource( 7 )
+texture_over = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+
+[node name="LevelTimer" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -18.0
+margin_right = 18.0
+margin_bottom = 22.0
+theme = ExtResource( 4 )
+text = "34.5"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/main/MenuBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/main/AboutMenu.gd" type="Script" id=2]
+
+[node name="AboutMenu" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="VBoxContainer" index="0"]
+margin_right = 1024.0
+margin_bottom = 44.0
+text = "About"
+align = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer" index="1"]
+margin_top = 191.0
+margin_right = 1024.0
+margin_bottom = 384.0
+size_flags_horizontal = 5
+size_flags_vertical = 6
+bbcode_enabled = true
+bbcode_text = "[center]
+Created by Matt Buckley
+
+Other games [url=https://substantialbiscuit.itch.io/]{Itch.io}[/url]
+[/center]"
+text = "
+Created by Matt Buckley
+
+Other games {Itch.io}
+"
+fit_content_height = true
+
+[node name="BackButton" type="Button" parent="VBoxContainer" index="2"]
+margin_left = 474.0
+margin_top = 532.0
+margin_right = 550.0
+margin_bottom = 576.0
+size_flags_horizontal = 6
+text = "Back"
+
+[connection signal="meta_clicked" from="VBoxContainer/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_BackButton_pressed"]

@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/main/art/toscuchet-cm/toscuchet.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/main/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://src/main/MenuBase.tscn" type="PackedScene" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 1 )
+
+[node name="MainMenu" instance=ExtResource( 4 )]
+script = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." index="1"]
+anchor_left = 0.1
+anchor_top = 0.05
+anchor_right = 0.9
+anchor_bottom = 0.95
+custom_constants/separation = 50
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="VBoxContainer" index="0"]
+margin_top = 3.0
+margin_right = 1024.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 1 )
+text = "Journey to the Edge"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" index="1"]
+margin_top = 133.0
+margin_right = 1024.0
+margin_bottom = 645.0
+custom_constants/separation = 100
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer" index="0"]
+margin_right = 796.0
+margin_bottom = 512.0
+rect_min_size = Vector2( 512, 512 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]Aye Cap'n, your crew are on the edge of breaking point and are in need of a holiday, journey to the rumoured paradise at the edge of the world before morale drops too low.
+
+Control your ship with either the arrow keys or WASD. [img]res://src/player/art/ship.png[/img]
+[img]res://src/player/art/rum_bottle.png[/img] Collect rum to keep up morale.
+
+Avoid the storms and reach any edge of the map to escape to paradise.
+Can you find the treasure chest in each level?[img]res://src/player/art/chest.png[/img][/center]"
+text = "Aye Cap'n, your crew are on the edge of breaking point and are in need of a holiday, journey to the rumoured paradise at the edge of the world before morale drops too low.
+
+Control your ship with either the arrow keys or WASD. 
+ Collect rum to keep up morale.
+
+Avoid the storms and reach any edge of the map to escape to paradise.
+Can you find the treasure chest in each level?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" index="1"]
+margin_left = 896.0
+margin_right = 1024.0
+margin_bottom = 512.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+custom_constants/separation = 20
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" index="0"]
+margin_top = 202.0
+margin_right = 128.0
+margin_bottom = 246.0
+size_flags_horizontal = 3
+text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AboutButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" index="1"]
+margin_top = 266.0
+margin_right = 128.0
+margin_bottom = 310.0
+rect_min_size = Vector2( 128, 0 )
+size_flags_horizontal = 3
+text = "About"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/AboutButton" to="." method="_on_AboutButton_pressed"]

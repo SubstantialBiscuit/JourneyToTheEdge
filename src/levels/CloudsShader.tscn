@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float scroll_speed;
+uniform float weight_cutoff;
+uniform float weight_factor;
+
+void fragment() {
+	vec2 new_uv = UV;
+	new_uv.x += TIME * scroll_speed;
+	float weight = texture(TEXTURE, new_uv).r;
+	if (weight < weight_cutoff) {
+		COLOR.a = 0.0;
+	} else {
+		COLOR = vec4(0.0, 0.0, 0.0, weight * weight_factor);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/scroll_speed = -0.005
+shader_param/weight_cutoff = 0.5
+shader_param/weight_factor = 0.25
+
+[sub_resource type="OpenSimplexNoise" id=3]
+octaves = 1
+period = 150.0
+lacunarity = 1.0
+
+[sub_resource type="NoiseTexture" id=4]
+width = 1024
+seamless = true
+noise = SubResource( 3 )
+
+[node name="CloudsShader" type="TextureRect"]
+pause_mode = 2
+material = SubResource( 2 )
+margin_left = -3972.53
+margin_top = -1954.95
+margin_right = 3946.47
+margin_bottom = 3594.05
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
